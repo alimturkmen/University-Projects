@@ -1,0 +1,13 @@
+EXPLANATION OF THE ALGORITHM
+
+I used a struct, Process, by that way I think my design became neat. Each process has the same properties with different values. Each has a name, an instruction set and an arrival time. Although I didn't need the line number of the last executed instruction as it is stated in the project description I also defined a field variable for the line number. Since we execute instructions one by one, I thought queue would be a good data structure for instruction set. Therefore, there is no need to store the name of the instruction or the line number.  
+
+First part of main function is designed for reading the process file and the instruction files. As I mentioned in comments, I thought "description" file as a waiting queue. This time  they are waiting for the arrival time. Hence, I take the processes and put them into a queue. As time elapses processes will pop out from the queue. The instruction set of the processes are also assigned in this part. 
+
+There are two variables in the project in order to measure time: 'time' and 'time2'. 'time' keeps elapsing as the CPU executes instructions whereas 'time2' stops when the process gets the CPU. Thus, 'time-time2' gives the amount of time the CPU executes that process.
+
+We need to show the current status of the process queue(procQue) when a process gets the CPU. In order to iterate on the queue I used another queue, tempQueue, which pops each process using FIFO, and the names of the processes are written. 
+
+In the main loop of the project, in each turn the elements of the tempQueue are written. Then 'time2' is assigned to 'time' which implies that new process starts being executed. 'time' will increase during the process's execution. The CPU will keep handling the instructions in the quantum time interval. Until 'time-time2' ,in other words execution time of the process, becomes greater than or equal to quantum time, the CPU will be busy with that process. If any process arrives to the CPU in this time interval, they will be added to the queue. After the process uses its time quantum, program checks whether the process is done or not. If it isn't, then it is pushed to the end of the queue. The last if statement in the loop is written to handle the idle status of CPU. (Although it is not an expected case.) This loop turns until there is no process left in procQueue.
+
+The input file is "definiton.txt" and the output file is "output.txt".

@@ -1,0 +1,24 @@
+EXPLANATION OF THE ALGORITHM
+
+-Process struct
+I used a struct, Process, by that way I think my design became neat. Each process has the same properties with different values. Each has a name, an instruction set and an arrival time. Although I didn't need the line number of the last executed instruction as it is stated in the project description I also defined a field variable for the line number. Since we execute instructions one by one, I thought queue would be a good data structure for instruction set. The instruction set is stored in a queue of pairs where each instruction is represented by a pair. First item of the pair is the name of the process and the second one is the time required to execute the process. There is no need to store the line number.  
+
+-Reading the files
+First part of main function is designed for reading the process file and the instruction files. As I mentioned in comments, I thought "description" file as a waiting queue. This time  they are waiting for the arrival time. Hence, I take the processes and put them into a queue. As time elapses processes will pop out from the queue. The instruction set of the processes are also assigned in this part. 
+
+-Time variables
+There are two variables in the project in order to measure time: 'time' and 'time2'. 'time' keeps elapsing as the CPU executes instructions whereas 'time2' stops when the process gets the CPU. Thus, 'time-time2' gives the amount of time the CPU executes that process.
+
+-Usage of semaphore
+We have to be sure that when a process wants to use a resource there isn't any other process using the same resource. To check this condition, an array is used to store the semaphores. All semaphores are 0 by default, if a process wants to use a resource whose semaphore value isn't 0 will be sent to the waiting queue. sQueues is the vector that stores all of these waiting queues.
+
+-Writing the queue
+We need to show the current status of the process queue(procQue) and waiting queues(sQueues). In order to record this status I created a function called "writeQueue" which takes a process queue and the time then stores the names of the processes in the queue in a string with required format. When a process gets the CPU or goes to a waiting queue or pops out from waiting queue this function is called in order to update the output files.
+
+-Main loop
+In the main loop of the project, in each turn the elements of the procQueue are written into the string, outputFile."wait" variable becomes false by default which predicts the process won't be sent to a waiting queue. If it is goes to a waiting queue then wait changes. Then 'time2' is assigned to 'time' which implies that new process starts being executed. 'time' will increase during the process's execution. The CPU will keep handling the instructions in the quantum time interval. Until 'time-time2' ,in other words execution time of the process, becomes greater than or equal to quantum time, the CPU will be busy with that process. If any process arrives to the CPU in this time interval, they will be added to the queue. If the following instruction wants to use a resource or to release a resource the time required for that instruction is 0. Therefore, the instruction is checked by that whether the following instruction either wants to use a resource or releases a resource. If so, then the instruction name is checked whether the instruction wait_S[sNo] or signS_[sNO]. (sNo is the semaphore number). If it is wait_S[sNo] and no other process using the same resource, just the corresponding semaphore value becomes 1. If some other process is in critical region the process stops being executed and goes to the waiting queue, variable "wait" becomes true. If the instruction is sign_S[sNo] and no other process is waiting in the queue_[sNo] just the corresponding semaphore value becomes 0. If a process has been waiting in the queue, it pops out from the waiting queue and goes to the ready queue(procQueue) and semaphore becomes 1.
+After the process uses its time quantum or goes to a waiting queue, program checks whether the process is done or not. If it isn't done and it was not sent to a waiting queue, then it is pushed to the end of the queue. The last if statement in the loop is written to handle the idle status of CPU. (Although it is not an expected case.) This loop turns until there is no process left in procQueue.
+At the end of the program asked output files are written.
+
+* Run the code with "g++ -std=c++11 main.cpp -o out". Some functions may not run properly otherwise.
+

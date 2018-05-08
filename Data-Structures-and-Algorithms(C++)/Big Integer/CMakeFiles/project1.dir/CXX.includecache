@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/student/project1/BigInteger.h
+LinkedList.h
+/home/student/project1/LinkedList.h
+
+/home/student/project1/LinkedList.h
+iostream
+-
+Node.h
+/home/student/project1/Node.h
+
+/home/student/project1/Node.h
+cstddef
+-
+iostream
+-
+
+/home/student/project1/main.cpp
+iostream
+-
+sstream
+-
+algorithm
+-
+fstream
+-
+BigInteger.h
+/home/student/project1/BigInteger.h
+
