@@ -1,0 +1,39 @@
+
+
+avg market value
+avg age
+prev season score
+was champion
+ssq opt age
+old player ratio
+num of players
+
+ 'prev_season_score',
+ 'was_champion',
+ 'avg_age',
+ 'multinationality',
+ 'avg_market_value',
+ 'ssq_opt_age',
+ 'prev_season_order',
+ 'num_of_players',
+ 'num_of_ex_players'
+
+
+from turkey
+from brazil
+from argentina
+from germany
+season
+multinationality
+prev season order
+
+1- from turkey
+from brazil
+from argentina
+from germany
+
+2- multinationality
+	prev season order
+
+3-season
+	multinationality
